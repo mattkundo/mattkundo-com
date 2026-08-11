@@ -7,6 +7,44 @@
 <meta name="description" content="{{ site.description }}">
 <link rel="canonical" href="{{ site.url }}/">
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="{{ title or site.name }}">
+<meta property="og:description" content="{{ site.description }}">
+<meta property="og:url" content="{{ site.url }}/">
+<meta property="og:image" content="{{ site.url }}/assets/img/matt-kundo-portrait.jpg">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.name }}",
+  "jobTitle": "Marketing Operations and GTM Engineering",
+  "url": "{{ site.url }}",
+  "image": "{{ site.url }}/assets/img/matt-kundo-portrait.jpg",
+  "email": "mailto:{{ site.email }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Austin",
+    "addressRegion": "TX",
+    "addressCountry": "US"
+  },
+  "knowsAbout": [
+    "Marketing operations",
+    "Go-to-market engineering",
+    "Marketing attribution",
+    "Google Ads",
+    "Google Analytics 4",
+    "Google Tag Manager",
+    "Autonomous AI agents"
+  ],
+  "sameAs": [
+    "{{ site.linkedin }}",
+    "{{ site.github }}"
+  ]
+}
+</script>
 </head>
 <body>
 {{ content | safe }}
