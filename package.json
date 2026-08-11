@@ -1,0 +1,15 @@
+{
+  "name": "mattkundo-com",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Personal site for Matt Kundo",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "test": "npm run build && node --test test/"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
