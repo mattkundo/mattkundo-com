@@ -4,6 +4,11 @@
   --accent: #c2410c;
   --rule: #e2e0d6;
   --dot: #c9c9bd;
+  /* De-emphasized functional text (labels, meta lines). A solid color, not
+     opacity, so every use holds >=4.5:1 against --bg regardless of what's
+     behind it. Measured 5.59:1 (WCAG relative-luminance formula). Hierarchy
+     against full --ink comes from size/weight/case/letter-spacing, not shade. */
+  --muted: #656661;
 }
 
 * { box-sizing: border-box; }
@@ -29,7 +34,7 @@ a { color: var(--ink); }
   font-size: 11px;
   letter-spacing: .06em;
   text-transform: uppercase;
-  opacity: .5;
+  color: var(--muted);
 }
 
 .wrap { max-width: 860px; margin: 0 auto; padding: 30px clamp(18px, 5vw, 46px) 60px; }
@@ -43,7 +48,7 @@ a { color: var(--ink); }
 }
 
 h1 { font-size: clamp(26px, 6vw, 32px); letter-spacing: -.025em; margin: 0 0 3px; line-height: 1.05; }
-.sub { font-size: 13px; opacity: .6; margin: 0 0 13px; }
+.sub { font-size: 13px; color: var(--muted); margin: 0 0 13px; }
 .hook { font-size: clamp(17px, 4.4vw, 20px); font-weight: 700; letter-spacing: -.015em; line-height: 1.3; margin: 0; }
 .pitch { margin: 0 0 8px; max-width: 66ch; }
 
@@ -57,7 +62,7 @@ h1 { font-size: clamp(26px, 6vw, 32px); letter-spacing: -.025em; margin: 0 0 3px
 .metrics > div { padding: 13px 15px 12px; border-right: 1px dotted var(--dot); }
 .metrics > div:last-child { border-right: 0; }
 .metrics .v { font-size: 23px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.metrics .l { font-size: 11px; opacity: .55; margin-top: 4px; line-height: 1.35; }
+.metrics .l { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
 
 .ctas { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 9px; }
 .btn, .btn2 {
@@ -70,18 +75,27 @@ h1 { font-size: clamp(26px, 6vw, 32px); letter-spacing: -.025em; margin: 0 0 3px
 .btn:hover, .btn2:hover { filter: brightness(.92); }
 .btn:focus-visible, .btn2:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-.quiet { font-size: 12px; opacity: .6; margin: 2px 0 0; }
+/* Browsers drop background-color by default when printing/saving to PDF, which
+   would leave .btn's white label text invisible on a white page while its
+   border still renders. Fall back to the outline style .btn2 already uses,
+   which is print-safe by construction (transparent background, colored text
+   and border) instead of relying on background-color surviving print. */
+@media print {
+  .btn { background: transparent; color: var(--accent); }
+}
+
+.quiet { font-size: 12px; color: var(--muted); margin: 2px 0 0; }
 .quiet a { margin-right: 15px; }
 
 .sh {
   font-size: 11px; font-weight: 400;
   letter-spacing: .12em; text-transform: uppercase;
-  opacity: .45; margin: 32px 0 10px;
+  color: var(--muted); margin: 32px 0 10px;
   border-bottom: 1px solid var(--rule); padding-bottom: 6px;
 }
 
 .row { display: grid; grid-template-columns: 150px 1fr; gap: 4px 18px; margin: 0 0 6px; }
-.row .k { opacity: .55; }
+.row .k { color: var(--muted); }
 
 .limits { border-left: 2px solid var(--accent); padding: 2px 0 2px 14px; margin: 12px 0; max-width: 66ch; }
 
@@ -95,7 +109,7 @@ li { margin-bottom: 6px; max-width: 72ch; }
   flex-wrap: wrap; gap: 14px;
   font-size: 12px;
 }
-.foot > span:first-child { opacity: .55; }
+.foot > span:first-child { color: var(--muted); }
 
 @media (max-width: 720px) {
   .metrics { grid-template-columns: repeat(2, 1fr); }
