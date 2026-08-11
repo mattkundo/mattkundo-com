@@ -24,6 +24,12 @@ test("contains no exclamation marks in prose", () => {
   assert.equal(/!/.test(prose), false, "exclamation mark found");
 });
 
+test("contains no semicolons in prose", () => {
+  // Same house style rule as the dash check (CLAUDE.md rule 8): a banned AI
+  // tell that the suite didn't assert on until one slipped through.
+  assert.equal(/;/.test(prose), false, "semicolon found");
+});
+
 test("uses first person singular, never we/our/us", () => {
   const banned = prose.match(/\b(we|our|ours)\b/gi) || [];
   assert.deepEqual(banned, [], `plural voice found: ${banned.join(", ")}`);

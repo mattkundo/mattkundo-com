@@ -29,7 +29,7 @@ const EXPECTED_FILES = ["content-rules.test.js", "schema.test.js"];
 
 // The current known-good total. Raise it when you add tests. Only lower it
 // if you can say why the count is supposed to drop.
-const MINIMUM_TEST_COUNT = 15;
+const MINIMUM_TEST_COUNT = 16;
 
 const missing = EXPECTED_FILES.filter((f) => !existsSync(path.join(TEST_DIR, f)));
 if (missing.length > 0) {
