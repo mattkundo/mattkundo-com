@@ -37,7 +37,7 @@ test("contains none of the retired agency claims", () => {
 });
 
 test("the headline metrics all appear on the page", () => {
-  for (const key of ["merged_prs", "elapsed_days", "tools", "tests"]) {
+  for (const key of ["merged_prs", "elapsed_days", "tools", "tests_passed"]) {
     const formatted = metrics.metrics[key].value.toLocaleString("en-US");
     assert.ok(
       html.includes(formatted),

@@ -61,8 +61,8 @@ h1 { font-size: clamp(26px, 6vw, 32px); letter-spacing: -.025em; margin: 0 0 3px
 }
 .metrics > div { padding: 13px 15px 12px; border-right: 1px dotted var(--dot); }
 .metrics > div:last-child { border-right: 0; }
-.metrics .v { font-size: 23px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.metrics .l { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.metrics .v { font-size: 23px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; font-variant-numeric: tabular-nums; overflow-wrap: break-word; word-break: break-word; }
+.metrics .l { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.35; overflow-wrap: break-word; word-break: break-word; }
 
 .ctas { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 9px; }
 .btn, .btn2 {

@@ -16,13 +16,23 @@
       "label": "scheduled jobs in production",
       "command": "ls infra/launchd/*cadence*.plist | wc -l"
     },
-    "tests": {
-      "value": 5866,
+    "tests_collected": {
+      "value": 5870,
+      "label": "tests collected",
+      "command": "python3 -m pytest --collect-only -q"
+    },
+    "tests_passed": {
+      "value": 5859,
       "label": "tests passing",
-      "command": "python3 -m pytest --collect-only -q | tail -1"
+      "command": "python3 -m pytest -q"
+    },
+    "tests_skipped": {
+      "value": 11,
+      "label": "tests skipped",
+      "command": "python3 -m pytest -q"
     },
     "python_lines": {
-      "value": 209185,
+      "value": 209258,
       "label": "lines of Python",
       "command": "wc -l over *.py excluding .git, __pycache__, node_modules, venvs"
     },
@@ -32,12 +42,12 @@
       "command": "count of the same file set"
     },
     "merged_prs": {
-      "value": 456,
+      "value": 462,
       "label": "pull requests merged",
       "command": "gh pr list --state merged --limit 2000 --json number -q length"
     },
     "commits": {
-      "value": 705,
+      "value": 706,
       "label": "commits",
       "command": "git rev-list --count HEAD"
     },
@@ -48,7 +58,7 @@
     }
   },
   "basis": {
-    "commit": "2fc830a43c79258efa90cfcbd5920ca6999def4e",
+    "commit": "0593a805f3c7b59d09031b8cbfba9b58a22ac9c3",
     "ref": "feat/w2-site-metrics",
     "dirty": false
   }

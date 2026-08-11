@@ -38,7 +38,7 @@ title: "Matt Kundo: Marketing operations and GTM engineering"
       <div class="l">measured ROI on a $76,279 channel mix</div>
     </div>
     <div>
-      <div class="v">{{ metrics.metrics.tests.value | commas }}</div>
+      <div class="v">{{ metrics.metrics.tests_passed.value | commas }}</div>
       <div class="l">tests passing, which is how the speed stays honest</div>
     </div>
   </div>
@@ -59,9 +59,11 @@ title: "Matt Kundo: Marketing operations and GTM engineering"
     compliance gates, database-backed kill switches, and a completion gate that requires
     evidence before a task can be called done.</p>
   <p class="limits">It does not run the operation. It plays critical support, and it extends
-    what I can deliver. Client email is draft-only. Monthly reports need a manual confirm.
-    Client ad-account mutations are not implemented at all. Stating the limits is what makes
-    the rest credible.</p>
+    what I can deliver. Client email is draft-only except the weekly performance report, which
+    auto-sends only when I arm it. Monthly reports need a manual confirm before release. Client
+    ad budget, bid and copy mutations raise NotImplementedError; one account has a narrow,
+    kill-switched autopilot that can only pause spend, never raise it. Stating the limits is
+    what makes the rest credible.</p>
   <p class="row"><span class="k">scale</span><span>{{ metrics.metrics.python_lines.value | commas }}
     lines of Python, {{ metrics.metrics.scheduled_jobs.value }} scheduled jobs,
     {{ metrics.metrics.agent_roles.value }} agent roles</span></p>
@@ -81,14 +83,15 @@ title: "Matt Kundo: Marketing operations and GTM engineering"
   <h2 class="sh">The arc</h2>
   <p class="row"><span class="k">2015 to 2018</span><span>Paid media and SEO, agency and in-house</span></p>
   <p class="row"><span class="k">2018 to now</span><span>Founded MKDM. 30+ clients, $142,841
-    managed ad spend in the trailing 90 days</span></p>
+    managed ad spend in the trailing 90 days as of 2026-08-10</span></p>
   <p class="row"><span class="k">2026 to now</span><span>Built the agent platform. Shipped
     texascommercialplans.com solo: scraper, database, site, content engine</span></p>
   <p class="row"><span class="k">next</span><span>In-house, where I can build one system
     properly instead of five in parallel</span></p>
 
   <footer class="foot">
-    <span>{{ site.location }} · open to marketing operations and GTM engineering roles</span>
+    <span>{{ site.location }} · open to marketing operations and GTM engineering roles ·
+      <a href="{{ site.sourceRepo }}">this page is open source</a></span>
     <span class="ctas">
       <a class="btn" href="/assets/resume/matt-kundo-resume.pdf">Download resume (PDF)</a>
       <a class="btn2" href="mailto:{{ site.email }}">Email me</a>
