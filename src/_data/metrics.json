@@ -1,65 +1,65 @@
 {
-  "snapshot": "2026-08-11",
+  "snapshot": "2026-08-26",
   "metrics": {
     "tools": {
-      "value": 385,
+      "value": 389,
       "label": "agent-callable tools",
       "command": "python3 -c 'from agents.tools_registry import REGISTRY; print(len(REGISTRY))'"
     },
     "agent_roles": {
-      "value": 28,
+      "value": 29,
       "label": "agent roles",
       "command": "count of agents/**/profile.yaml, plus the built-in Conductor"
     },
     "scheduled_jobs": {
-      "value": 96,
+      "value": 100,
       "label": "scheduled jobs in production",
       "command": "ls infra/launchd/*cadence*.plist | wc -l"
     },
     "tests_collected": {
-      "value": 5870,
+      "value": 7024,
       "label": "tests collected",
       "command": "python3 -m pytest --collect-only -q"
     },
     "tests_passed": {
-      "value": 5859,
+      "value": 7008,
       "label": "tests passing",
       "command": "python3 -m pytest -q"
     },
     "tests_skipped": {
-      "value": 11,
+      "value": 16,
       "label": "tests skipped",
       "command": "python3 -m pytest -q"
     },
     "python_lines": {
-      "value": 209258,
+      "value": 231839,
       "label": "lines of Python",
       "command": "wc -l over *.py excluding .git, __pycache__, node_modules, venvs"
     },
     "python_files": {
-      "value": 701,
+      "value": 761,
       "label": "Python files",
       "command": "count of the same file set"
     },
     "merged_prs": {
-      "value": 462,
+      "value": 547,
       "label": "pull requests merged",
       "command": "gh pr list --state merged --limit 2000 --json number -q length"
     },
     "commits": {
-      "value": 706,
+      "value": 794,
       "label": "commits",
       "command": "git rev-list --count HEAD"
     },
     "elapsed_days": {
-      "value": 83,
+      "value": 98,
       "label": "days elapsed",
       "command": "first-to-last commit date span"
     }
   },
   "basis": {
-    "commit": "0593a805f3c7b59d09031b8cbfba9b58a22ac9c3",
-    "ref": "feat/w2-site-metrics",
+    "commit": "62727f46bce1bbd4f4f1bd08c4368266a05e1724",
+    "ref": "main",
     "dirty": false
   }
 }

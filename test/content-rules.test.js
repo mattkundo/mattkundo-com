@@ -71,8 +71,11 @@ test("no long number appears on the page that is absent from metrics.json", () =
   const allowed = new Set(
     Object.values(metrics.metrics).map((m) => m.value.toLocaleString("en-US"))
   );
-  // Sourced client outcomes and the address, per spec section 4.4.
-  for (const n of ["76,279", "153,610", "128.45", "1,662", "142,841", "2015", "2018", "2026"]) {
+  // Sourced client outcomes and the address, per spec section 4.4. Years are allowed
+  // individually rather than by pattern, so each one still has to be defensible: 2024 is
+  // the first Matt-authored engineering artifact (mkdm-gbp-scheduler, 19 commits that
+  // December), which is what the pitch's "since 2024" refers to.
+  for (const n of ["76,279", "153,610", "128.45", "1,662", "142,841", "2015", "2018", "2024", "2026"]) {
     allowed.add(n);
   }
   const found = prose.match(/\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d{4,}\b/g) || [];
