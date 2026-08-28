@@ -1,5 +1,5 @@
 {
-  "snapshot": "2026-08-26",
+  "snapshot": "2026-08-28",
   "metrics": {
     "tools": {
       "value": 389,
@@ -12,17 +12,17 @@
       "command": "count of agents/**/profile.yaml, plus the built-in Conductor"
     },
     "scheduled_jobs": {
-      "value": 100,
+      "value": 101,
       "label": "scheduled jobs in production",
       "command": "ls infra/launchd/*cadence*.plist | wc -l"
     },
     "tests_collected": {
-      "value": 7024,
+      "value": 7075,
       "label": "tests collected",
       "command": "python3 -m pytest --collect-only -q"
     },
     "tests_passed": {
-      "value": 7008,
+      "value": 7059,
       "label": "tests passing",
       "command": "python3 -m pytest -q"
     },
@@ -32,34 +32,34 @@
       "command": "python3 -m pytest -q"
     },
     "python_lines": {
-      "value": 231839,
+      "value": 239473,
       "label": "lines of Python",
       "command": "wc -l over *.py excluding .git, __pycache__, node_modules, venvs"
     },
     "python_files": {
-      "value": 761,
+      "value": 825,
       "label": "Python files",
       "command": "count of the same file set"
     },
     "merged_prs": {
-      "value": 547,
+      "value": 560,
       "label": "pull requests merged",
       "command": "gh pr list --state merged --limit 2000 --json number -q length"
     },
     "commits": {
-      "value": 794,
+      "value": 868,
       "label": "commits",
       "command": "git rev-list --count HEAD"
     },
     "elapsed_days": {
-      "value": 98,
+      "value": 100,
       "label": "days elapsed",
       "command": "first-to-last commit date span"
     }
   },
   "basis": {
-    "commit": "62727f46bce1bbd4f4f1bd08c4368266a05e1724",
+    "commit": "7a1ec83aad9249644959f3621a78d3c26cbed983",
     "ref": "main",
-    "dirty": false
+    "dirty": true
   }
 }
