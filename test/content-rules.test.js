@@ -42,6 +42,37 @@ test("contains none of the retired agency claims", () => {
   }
 });
 
+test("contains none of the claims the evidence bank rejected", () => {
+  // The 2026-08-24 audit of the resume evidence bank rejected these, and the first three
+  // were live on this page until 2026-08-28. Fragments rather than whole sentences, for
+  // the same reason the bank bans the short form: a ban on the long sentence misses every
+  // paraphrase.
+  //   85% CPA / 65% growth  two channels over two measurement windows welded into one claim
+  //   1,662                 no system of record, and arithmetically impossible as published
+  //   113%                  a percentage delta with no absolute base, so nothing falsifies it
+  //   349.7% / 508,916      unfalsifiable and not reproducible respectively
+  for (const claim of ["85% CPA", "65% growth", "1,662", "113%", "349.7%", "508,916"]) {
+    assert.equal(prose.includes(claim), false, `rejected claim present: ${claim}`);
+  }
+});
+
+test("every claimed number carries the caveat that makes it checkable", () => {
+  // This is the fix for two gates disagreeing. The site gate only ever asked whether a
+  // number was ALLOWED to appear, never whether its caveat appeared with it, which is how
+  // $128.45 sat on a public page with no "blended cost" while the resume gate was refusing
+  // to render a PDF containing exactly that. These transcribe the `requires` rules from the
+  // private evidence bank. It is a hand copy, and the copy is what has to be kept honest.
+  const rules = [
+    ["$76,279", "channel mix", "594 x $128.45 is the spend, so it is a channel mix and not managed spend"],
+    ["$128.45", "blended cost", "without the word cost it reads as revenue per enrollment"],
+    ["42.6%", "23.3%", "42.6% is the peak of two variants and needs its comparator"],
+  ];
+  for (const [claim, caveat, why] of rules) {
+    if (!prose.includes(claim)) continue;
+    assert.ok(prose.includes(caveat), `${claim} appears without "${caveat}": ${why}`);
+  }
+});
+
 test("the headline metrics all appear on the page", () => {
   for (const key of ["merged_prs", "elapsed_days", "tools", "tests_passed"]) {
     const formatted = metrics.metrics[key].value.toLocaleString("en-US");
@@ -71,8 +102,14 @@ test("no long number appears on the page that is absent from metrics.json", () =
   const allowed = new Set(
     Object.values(metrics.metrics).map((m) => m.value.toLocaleString("en-US"))
   );
-  // Sourced client outcomes and the address, per spec section 4.4.
-  for (const n of ["76,279", "153,610", "128.45", "1,662", "142,841", "2015", "2018", "2026"]) {
+  // Sourced client outcomes and the address, per spec section 4.4. Years are allowed
+  // individually rather than by pattern, so each one still has to be defensible: 2024 is
+  // the first Matt-authored engineering artifact (mkdm-gbp-scheduler, 19 commits that
+  // December), which is what the pitch's "since 2024" refers to.
+  // 1,662 and 142,841 came off this list on 2026-08-28 along with the claims they covered.
+  // An allowlist entry is an assertion that a number traces, so one that outlives its claim
+  // is exactly how a rejected figure walks back onto a public page.
+  for (const n of ["76,279", "153,610", "128.45", "48,570", "2015", "2018", "2024", "2025", "2026"]) {
     allowed.add(n);
   }
   const found = prose.match(/\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d{4,}\b/g) || [];

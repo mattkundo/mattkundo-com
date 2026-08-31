@@ -119,3 +119,15 @@ li { margin-bottom: 6px; max-width: 72ch; }
   .idblock { gap: 16px; }
   .portrait { width: 76px; height: 76px; }
 }
+
+/* Essay pages. Scoped to .essay so the single-page layout above is untouched. */
+.essay{max-width:34rem}
+.essay h1{margin:1.6rem 0 .4rem;line-height:1.15}
+.essay .dek{font-size:1.05rem;line-height:1.5;margin:0 0 .6rem}
+.essay h2{margin:2rem 0 .5rem;font-size:1.05rem;letter-spacing:.02em}
+.essay p{line-height:1.62;margin:0 0 1rem}
+.essay pre{overflow-x:auto;padding:.85rem 1rem;border-radius:4px;font-size:.82rem;line-height:1.5}
+.essay code{font-size:.86em}
+.essay pre code{font-size:1em}
+.essay hr{margin:2.2rem 0 1.2rem;border:0;border-top:1px solid currentColor;opacity:.2}
+.essay .topbar a{text-decoration:none}
