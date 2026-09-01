@@ -35,9 +35,39 @@ private. I regenerate it deliberately, then review the diff.
 ## Content rules, enforced by `npm test`
 
 - First person singular. Never "we", "our", "us"
-- No em or en dashes, no exclamation marks
+- No em or en dashes, no exclamation marks, no semicolons
 - No platform number that is absent from `metrics.json`
 - None of the retired agency claims
+- None of the claims the resume evidence bank rejected
+- Every claim that needs a caveat carries it, so `$128.45` may not appear
+  without "blended cost"
+
+## The served resume PDF
+
+`src/assets/resume/matt-kundo-resume.pdf` is linked from the homepage, so it
+is as public as the page and a reader reaches it in one click.
+
+**It must only ever be produced by the gated renderer**, which refuses to emit
+a PDF when a number in the document cannot be traced to
+`configs/resume_evidence.yaml` in the mkdm-agent-2 repo, when banned phrasing
+appears, or when a required caveat is missing.
+
+This is not a hypothetical. On 2026-08-31 the file served here was a
+2026-08-11 render that failed that gate on six counts: `1,662`, `113%`,
+`85% CPA / 65% growth`, `508,916`, `349.7%` and `8,651`, plus `$128.45` with
+no "blended cost". The HTML on this page had already been corrected. The PDF
+had not, and nothing here was checking it, so the corrected page linked
+straight to an uncorrected document.
+
+`npm test` reads the built HTML and cannot see inside a PDF. Verify a
+replacement by hand before committing it:
+
+```
+pdftotext src/assets/resume/matt-kundo-resume.pdf - > /tmp/r.txt
+python3 -c "import sys; sys.path.insert(0,'/path/to/mkdm-agent-2'); \
+  from tools.resume_evidence import audit_document; \
+  print(audit_document(open('/tmp/r.txt').read()) or 'CLEAN')"
+```
 
 ## Domain
 
