@@ -130,8 +130,17 @@ li { margin-bottom: 6px; max-width: 72ch; }
   font-family:inherit;background:rgba(127,127,127,.09);max-width:none}
 /* The opening block quotes two emails at up to 87 characters. Inside the 34rem
    measure that clipped 37% of it, including the line the next paragraph quotes
-   as evidence. On a wide viewport the block breaks the measure instead. */
-@media (min-width:900px){ .essay pre{margin-inline:-4.5rem} }
+   as evidence. A fixed negative margin was a guess and still clipped 17%, so the
+   block is sized to its own content and centred on the column instead. */
+@media (min-width:900px){
+  .essay pre{
+    width:max-content;
+    max-width:min(90vw,58rem);
+    position:relative;
+    left:50%;
+    transform:translateX(-50%);
+  }
+}
 .essay code{font-size:.86em}
 .essay pre code{font-size:1em}
 .essay hr{margin:2.2rem 0 1.2rem;border:0;border-top:1px solid currentColor;opacity:.2}
