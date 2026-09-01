@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ title or site.name }}</title>
-<meta name="description" content="{{ site.description }}">
+<meta name="description" content="{{ description or site.description }}">
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<meta property="og:type" content="profile">
+<meta property="og:type" content="{{ ogType or 'profile' }}">
 <meta property="og:title" content="{{ title or site.name }}">
-<meta property="og:description" content="{{ site.description }}">
+<meta property="og:description" content="{{ description or site.description }}">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
 <meta property="og:image" content="{{ site.url }}/assets/img/matt-kundo-portrait.jpg">
 <meta name="twitter:card" content="summary">

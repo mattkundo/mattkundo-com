@@ -2,6 +2,7 @@
 layout: base.njk
 title: "The check that could not fail"
 description: "I built a deterministic check for whether my agents' outbound writing sounded wrong, measured it, and deleted it. Then I found the same shape in a data pipeline that had spent weeks publishing deletions it had invented."
+ogType: article
 templateEngineOverride: md
 ---
 <header class="topbar">
@@ -138,6 +139,7 @@ If the answer is "identical", I'm not measuring it.
 
 <p class="quiet">I'm Matt Kundo. I build content and marketing systems, and I'm currently
 winding down my consultancy for an in-house role.
+<a href="/writing/">More writing</a> ·
 <a href="/">More about the work</a> ·
 <a href="https://www.linkedin.com/in/mattkundo">LinkedIn</a> ·
 <a href="https://github.com/mattkundo">GitHub</a></p>

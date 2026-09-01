@@ -126,7 +126,12 @@ li { margin-bottom: 6px; max-width: 72ch; }
 .essay .dek{font-size:1.05rem;line-height:1.5;margin:0 0 .6rem}
 .essay h2{margin:2rem 0 .5rem;font-size:1.05rem;letter-spacing:.02em}
 .essay p{line-height:1.62;margin:0 0 1rem}
-.essay pre{overflow-x:auto;padding:.85rem 1rem;border-radius:4px;font-size:.82rem;line-height:1.5}
+.essay pre{overflow-x:auto;padding:.85rem 1rem;border-radius:4px;font-size:.82rem;line-height:1.5;
+  font-family:inherit;background:rgba(127,127,127,.09);max-width:none}
+/* The opening block quotes two emails at up to 87 characters. Inside the 34rem
+   measure that clipped 37% of it, including the line the next paragraph quotes
+   as evidence. On a wide viewport the block breaks the measure instead. */
+@media (min-width:900px){ .essay pre{margin-inline:-4.5rem} }
 .essay code{font-size:.86em}
 .essay pre code{font-size:1em}
 .essay hr{margin:2.2rem 0 1.2rem;border:0;border-top:1px solid currentColor;opacity:.2}
