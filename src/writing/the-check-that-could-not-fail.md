@@ -5,8 +5,8 @@ description: "I built a deterministic check for whether my agents' outbound writ
 templateEngineOverride: md
 ---
 <header class="topbar">
-  <span><a href="/">{{ site.name }}</a></span>
-  <span>{{ site.location }}</span>
+  <span><a href="/">Matt Kundo</a></span>
+  <span>Austin, TX</span>
 </header>
 
 <main class="wrap essay">
@@ -49,7 +49,7 @@ That's the cheap version of this problem and I can show it to you in ten lines. 
 
 ## What the gate is actually for
 
-I want to be fair to it first, because it earns its place. The system behind it drafts client email, builds reports, publishes posts and sends cold outreach, nearly all of it unattended, and in production the gate has fired 1,135 flags, applied 438 automatic sanitizations and hard blocked 147 outputs. It catches em dashes, first-person plural, exclamation marks, semicolons, and a list of words that read as machine-written. Those are literal strings, and a regex sees literal strings well.
+I want to be fair to it first, because it earns its place. The system behind it drafts client email, builds reports, publishes posts and sends cold outreach, nearly all of it unattended, and as of late August it had fired 1,135 flags, applied 438 automatic sanitizations and hard blocked 147 outputs in production. It catches em dashes, first-person plural, exclamation marks, semicolons, and a list of words that read as machine-written. Those are literal strings, and a regex sees literal strings well.
 
 It's also more porous than the sentence "nothing ships without passing the gate" implies, and I should be precise about that since the whole point here is not letting a green run mean more than it means. Em dashes and the per-client hard rules block a send. The style rules, pronouns and exclamation marks and word choice, are flag-only by design, because a word choice must never brick an irreversible send. Put a "we" and an exclamation mark in that warm email and it fails, but it still goes out, and two rows land on a dashboard nobody was going to read that day.
 
@@ -71,7 +71,7 @@ The loud failure was the false positive rate. The quiet one was worse.
 
 Before any style check runs, text goes through a function called `_prose_only` that strips code fences, markup, entities and URLs, so a semicolon inside an inline CSS rule doesn't trip the semicolon rule on every send. That's necessary, because my weekly client reports ship as rendered HTML.
 
-I measured one. Both numbers below come out of a single command against the repo's own fixture:
+I measured one. These readings come out of a single command against the repo's own fixture:
 
 ```python
 html = report_render.render_weekly_html(doc)
@@ -83,11 +83,11 @@ len(prose), prose.count("\n")      # 751, 0
 
 The renderer emits the whole document as one line. It assembles with `"".join` throughout and writes `<br>` where a break belongs, so the newline count is zero no matter how long the report gets. After the strip, 751 characters of prose and still not a line break in it.
 
-A header check is line based. It asks whether a short line is shouting. On every weekly report my system has ever produced it would have seen exactly one line, 751 characters long, correctly concluded that no, that isn't a header, and returned green. Every time. Without ever evaluating anything.
+A header check is line based. It asks whether a short line is shouting. On every weekly report my system has ever produced it would have seen exactly one line, correctly concluded that no, that isn't a header, and returned green. Every time. Without ever evaluating anything.
 
 That's the failure I actually care about. A false positive is loud, and somebody complains. A check that is structurally incapable of failing is silent, it reports success, and it quietly accumulates a track record that looks like evidence.
 
-Two more findings came out of the same afternoon and neither is small. The check was quadratic on ordinary HTML, because it reached for the obvious `<[^>]+>` to strip tags and that pattern rescans to end of string from every unterminated `<`. It ran synchronously on the agent's event loop at the write gate, so on a long audit dump it would have stalled the write it was supposed to be protecting. And its own disclaimer, the sentence saying this is a flag and not a block, sat in a description field that the tool layer truncates at 200 characters. The caveat I wrote specifically for the agent reading the result was the part the agent never saw. If you build gates for models to read, the message is a payload with a budget, not a comment.
+Three more findings came out of the same afternoon and none of them is small. The check was quadratic on ordinary HTML, because it reached for the obvious `<[^>]+>` to strip tags and that pattern rescans to end of string from every unterminated `<`. It ran synchronously on the agent's event loop at the write gate, so on a long audit dump it would have stalled the write it was supposed to be protecting. And its own disclaimer, the sentence saying this is a flag and not a block, sat in a description field that the tool layer truncates at 200 characters. The caveat I wrote specifically for the agent reading the result was the part the agent never saw. If you build gates for models to read, the message is a payload with a budget, not a comment.
 
 The check never reached main. What shipped that day was the rule in plain prose, injected into every agent's dispatch preamble, plus 51 tests. Those tests don't check that the prose is good. They check that the rule is written down once and that it actually reaches the session doing the writing. The original email went out with no voice guidance loaded at all, because its task type had no entry in the playbook map and the lookup returned an empty list without complaining. Nothing was violated, because nothing was loaded.
 
@@ -95,9 +95,9 @@ The check never reached main. What shipped that day was the rule in plain prose,
 
 Here's the expensive one.
 
-I own a Texas commercial electricity price comparison site. A scheduled extraction run feeds a Supabase table of plans, and a weekly market report writes itself off that table behind a publish gate. One blocking rule in that gate requires at least four citations to authoritative primary sources: ERCOT, the PUC, the EIA, FERC. It's a good rule.
+I own a Texas commercial electricity price comparison site. A scheduled extraction run feeds a Supabase table of plans, and a weekly market report writes itself off that table behind a publish gate. One blocking rule in that gate requires citations to authoritative primary sources: ERCOT, the PUC, the EIA, FERC. The weekly profile demands at least four of them. It's a good rule.
 
-Then I read a post of mine titled "255 Texas Commercial Electricity Plans Retired". Four authoritative citations. Cleared every other rule in the checklist. Average position 4.8 in Search Console, which is page one.
+Then I read a post of mine titled "255 Texas Commercial Electricity Plans Retired". Four authoritative citations, on a daily profile that only required one. Cleared every other rule in the checklist. Average position 4.8 in Search Console, which is page one.
 
 Its entire thesis was an artifact of my own scraper.
 
@@ -115,7 +115,7 @@ The citation rule measures sourcing. Sourcing is not truth. Adding citations to 
 
 The third one is smaller and it's the one I'd have bet against. Reviewing cold outreach copy, I hit the sentence "that is the part that costs you, not the missing page."
 
-That campaign's central rule is that I never assert a prospect has no website, because the signal I derive that from is wrong for 16 to 27 percent of them. The banned phrase list catches the explicit forms, "you don't have a website" and the rest. A definite article plus an adjective walks straight through. That sentence cleared send readiness, the outreach compliance check, CAN-SPAM, the em dash rule and every pinned test, and it still asserted the forbidden claim as settled fact.
+That campaign's central rule is that I never assert a prospect has no website, because the signal I derive that from is wrong for about 27 percent of them, measured on a random sample of 40. The banned phrase list catches the explicit forms, "you don't have a website" and the rest. A definite article plus an adjective walks straight through. That sentence cleared send readiness, the outreach compliance check, CAN-SPAM, the em dash rule and every pinned test, and it still asserted the forbidden claim as settled fact.
 
 Presupposition rides on grammar, not vocabulary, so no string rule reaches it.
 
