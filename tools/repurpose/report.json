@@ -1,0 +1,18 @@
+{
+  "source_url": "https://texascommercialplans.com/weekly-market-insights/texas-commercial-electricity-weekly-report-2026-09-01/",
+  "published": "2026-09-01",
+  "week": "August 25 to 31, 2026",
+  "plans_tracked": 1000,
+  "reps": 29,
+  "avg_cents": 7.85,
+  "avg_prior_cents": 8.17,
+  "median_cents": 6.69,
+  "repriced": 5,
+  "matched": 25,
+  "repriced_up": 0,
+  "term_curve": [
+    {"band": "1-12 mo",  "cents": 9.1, "plans": 435},
+    {"band": "13-24 mo", "cents": 6.6, "plans": 230},
+    {"band": "25-36 mo", "cents": 7.1, "plans": 107}
+  ]
+}

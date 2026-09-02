@@ -25,11 +25,11 @@ import path from "node:path";
 const TEST_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "test");
 
 // Add a new test file here when you add one.
-const EXPECTED_FILES = ["content-rules.test.js", "schema.test.js"];
+const EXPECTED_FILES = ["content-rules.test.js", "page-rules.test.js", "schema.test.js"];
 
 // The current known-good total. Raise it when you add tests. Only lower it
 // if you can say why the count is supposed to drop.
-const MINIMUM_TEST_COUNT = 18;
+const MINIMUM_TEST_COUNT = 26;
 
 const missing = EXPECTED_FILES.filter((f) => !existsSync(path.join(TEST_DIR, f)));
 if (missing.length > 0) {

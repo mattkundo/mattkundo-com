@@ -131,7 +131,11 @@ test("no long number appears on the page that is absent from metrics.json", () =
   // "2026-08-28" as the three separate figures 2026, 08 and 28, and allowlisting "08"
   // would then permit those digits anywhere on the page forever.
   const numeric = prose.replace(/\b\d{4}-\d{2}-\d{2}\b/g, " ");
-  const found = numeric.match(/\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d{4,}\b|\b\d{2,3}(?:\.\d+)?\b/g) || [];
+  // 2026-09-02: a single-digit integer part must not split at the decimal point. The old
+  // trailing alternative required 2-3 leading digits, so "6.69" was scanned as "69" and
+  // "9.1" was not scanned at all. Matching any decimal as one token fixes both, and it
+  // matters because allowlisting "69" would have permitted those digits anywhere on the page.
+  const found = numeric.match(/\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d+\.\d+\b|\b\d{4,}\b|\b\d{2,3}\b/g) || [];
   const unsourced = [...new Set(found)].filter((n) => !allowed.has(n));
   assert.deepEqual(unsourced, [], `unsourced numbers on the page: ${unsourced.join(", ")}`);
 });
