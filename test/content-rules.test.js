@@ -109,10 +109,29 @@ test("no long number appears on the page that is absent from metrics.json", () =
   // 1,662 and 142,841 came off this list on 2026-08-28 along with the claims they covered.
   // An allowlist entry is an assertion that a number traces, so one that outlives its claim
   // is exactly how a rejected figure walks back onto a public page.
-  for (const n of ["76,279", "153,610", "128.45", "48,570", "2015", "2018", "2024", "2025", "2026"]) {
+  // Companions to the allowed figures above, each from the same sourced case study as the
+  // number it sits beside: 594 enrollments alongside $153,610; 194 of 197 accepted
+  // alongside $48,570; $253 to $38 cost per conversion; 39 monthly conversions; 42.6%
+  // against 23.3% on the two rebuilt landing page variants; 15 accounts at the peak.
+  // "101" is the ROI on that same $76,279 mix. Worth noting how it surfaced: until
+  // 2026-09-02 it passed only by coincidence, because scheduled_jobs happened to equal 101
+  // and every metric value is auto-allowed. The metric moved to 103 and the claim appeared,
+  // which is the argument for keeping the allowlist explicit rather than pattern-based.
+  for (const n of ["76,279", "153,610", "128.45", "48,570", "2015", "2018", "2024", "2025", "2026",
+                   "101", "594", "194", "197", "253", "38", "39", "42.6", "23.3", "15"]) {
     allowed.add(n);
   }
-  const found = prose.match(/\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d{4,}\b/g) || [];
+  // 2026-09-02: widened to bare 2-3 digit numbers. The old pattern only caught
+  // comma-grouped or 4+ digit figures, so "over 110 scheduled jobs" sat hardcoded on
+  // the page for weeks, larger than the measured value and two lines above the claim
+  // that these numbers are "derived from the repository rather than typed by hand".
+  // Published metric values are allowed automatically, so a derived 2-3 digit number
+  // needs no allowlist entry; a typed one does, which is the whole point.
+  // ISO dates are formatting, not claims. Strip them first, or the widened pattern reads
+  // "2026-08-28" as the three separate figures 2026, 08 and 28, and allowlisting "08"
+  // would then permit those digits anywhere on the page forever.
+  const numeric = prose.replace(/\b\d{4}-\d{2}-\d{2}\b/g, " ");
+  const found = numeric.match(/\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d{4,}\b|\b\d{2,3}(?:\.\d+)?\b/g) || [];
   const unsourced = [...new Set(found)].filter((n) => !allowed.has(n));
   assert.deepEqual(unsourced, [], `unsourced numbers on the page: ${unsourced.join(", ")}`);
 });
